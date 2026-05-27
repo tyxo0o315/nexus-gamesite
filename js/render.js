@@ -83,7 +83,13 @@ function buildGameCard(g) {
   const statusLabel = { active: '进行中', paused: '暂停中', archived: '已归档' }[g.status] || g.status;
 
   card.innerHTML = `
-    <div class="game-card-emoji">${g.coverEmoji}</div>
+    ${g.coverImage
+      ? `<div class="game-card-cover">
+           <img src="${g.coverImage}" alt="${g.title}" loading="lazy" draggable="false">
+           <span class="game-card-cover-emoji">${g.coverEmoji}</span>
+         </div>`
+      : `<div class="game-card-emoji">${g.coverEmoji}</div>`
+    }
     <div>
       <div class="game-card-title">${g.title}</div>
       <div class="game-card-subtitle">${g.subtitle}</div>
@@ -102,6 +108,21 @@ function buildGameCard(g) {
       <span class="server-label">服务器地址</span>
       <code class="server-address">${g.serverAddress}</code>
     </div>` : ''}
+    ${g.modsLink
+      ? `<a class="btn-mods-link" href="${g.modsLink}">
+           <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+             <line x1="8" y1="6" x2="21" y2="6"/>
+             <line x1="8" y1="12" x2="21" y2="12"/>
+             <line x1="8" y1="18" x2="21" y2="18"/>
+             <line x1="3" y1="6" x2="3.01" y2="6"/>
+             <line x1="3" y1="12" x2="3.01" y2="12"/>
+             <line x1="3" y1="18" x2="3.01" y2="18"/>
+           </svg>
+           查看 Mod 列表
+         </a>`
+      : ''
+    }
     <div class="game-card-footer">
       <span class="game-card-status">
         <span class="status-dot"></span>${statusLabel}
@@ -247,10 +268,11 @@ function buildIdeaCard(idea, rotation) {
   card.className = `idea-card color-${idea.color}${idea.pinned ? ' is-pinned' : ''}`;
   card.style.setProperty('--card-rot', `${rotation}`);
 
+  const blank = !idea.title && !idea.author;
   const initials = idea.author.charAt(0).toUpperCase();
   const tags = idea.tags.map(t => `<span class="idea-tag">${t}</span>`).join('');
 
-  card.innerHTML = `
+  card.innerHTML = blank ? '' : `
     <div class="idea-card-meta">
       <span class="idea-author">
         <span class="idea-author-avatar">${initials}</span>

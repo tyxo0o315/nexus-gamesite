@@ -231,6 +231,37 @@
   font-size: var(--text-small);
 }
 
+/* ── Minecraft decorative characters ── */
+.section-mods { position: relative; }
+
+.mc-deco {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  filter: drop-shadow(0 8px 24px rgba(12, 27, 46, 0.13));
+  z-index: 0;
+}
+
+.section-header,
+.mods-layout { position: relative; z-index: 1; }
+
+.mc-deco--steve {
+  width: clamp(150px, 13vw, 200px);
+  right: 0;
+  top: var(--space-xl);
+}
+
+.mc-deco--chicken {
+  width: clamp(120px, 11vw, 165px);
+  right: clamp(10px, 2vw, 30px);
+  bottom: var(--space-xl);
+}
+
+@media (max-width: 1100px) {
+  .mc-deco { display: none; }
+}
+
 /* Mobile filter collapse */
 @media (max-width: 768px) {
   .mods-layout {

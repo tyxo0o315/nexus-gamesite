@@ -83,6 +83,43 @@ document.addEventListener('DOMContentLoaded', () => {
   animateModRows();
   window.__animateModRows = animateModRows;
 
+  // ── MC character decorations ─────────────────────────────
+  const steveEl   = document.querySelector('.mc-deco--steve');
+  const chickenEl = document.querySelector('.mc-deco--chicken');
+
+  if (steveEl) {
+    gsap.set(steveEl, { scaleX: -1 });
+    ScrollTrigger.create({
+      trigger: '#mods', start: 'top 75%', once: true,
+      onEnter() {
+        gsap.fromTo(steveEl,
+          { x: 60 },
+          { opacity: 0.9, x: 0, duration: 0.9, ease: 'power3.out',
+            onComplete() {
+              gsap.to(steveEl, { y: -16, repeat: -1, yoyo: true, duration: 2, ease: 'power1.inOut' });
+            }
+          }
+        );
+      }
+    });
+  }
+
+  if (chickenEl) {
+    ScrollTrigger.create({
+      trigger: '#mods', start: 'top 75%', once: true,
+      onEnter() {
+        gsap.fromTo(chickenEl,
+          { x: 50 },
+          { opacity: 0.9, x: 0, duration: 0.9, ease: 'power3.out', delay: 0.2,
+            onComplete() {
+              gsap.to(chickenEl, { y: -12, repeat: -1, yoyo: true, duration: 2.5, ease: 'power1.inOut' });
+            }
+          }
+        );
+      }
+    });
+  }
+
   // ── Ideas board cards ────────────────────────────────────
   // Set each card's static rotation before the scroll animation so GSAP owns the transform
   document.querySelectorAll('.idea-card').forEach(card => {
