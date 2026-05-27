@@ -20,12 +20,13 @@ const SITE_DATA = {
       subtitle: "Java 版生存",
       version: "1.21.4",
       loader: "Fabric",
-      loaderVersion: "0.19.2",   // Fabric 加载器版本，用 PCL 安装
+      loaderVersion: "0.19.2",
       totalMods: 25,
       status: "active",
       lastUpdated: "2026-05-27",
-      packDownloadUrl: "#",       // 替换为整合包真实下载链接
-      packFileName: "crew-smp.zip",
+      packDownloadUrl: "https://github.com/tyxo0o315/nexus-gamesite/releases/download/v1.0.0/nexus-mods-1.21.4.zip",
+      packFileName: "nexus-mods-1.21.4.zip",
+      serverAddress: "frp-use.com:29702",
       coverEmoji: "⛏️",
       notes: "用 PCL 启动，需要 Java 21，安装 Fabric 加载器 0.19.2。",
     },

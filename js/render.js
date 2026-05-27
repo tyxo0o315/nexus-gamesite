@@ -97,6 +97,11 @@ function buildGameCard(g) {
       <div class="count-label">个模组</div>
     </div>
     <p class="game-card-notes">${g.notes}</p>
+    ${g.serverAddress ? `
+    <div class="game-card-server">
+      <span class="server-label">服务器地址</span>
+      <code class="server-address">${g.serverAddress}</code>
+    </div>` : ''}
     <div class="game-card-footer">
       <span class="game-card-status">
         <span class="status-dot"></span>${statusLabel}
