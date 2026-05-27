@@ -28,7 +28,25 @@ const SITE_DATA = {
       packFileName: "nexus-mods-1.21.4.zip",
       serverAddress: "frp-use.com:29702",
       coverEmoji: "⛏️",
-      notes: "用 PCL 启动，需要 Java 21，安装 Fabric 加载器 0.19.2。",
+      notes: "用 PCL 启动，安装 Fabric 加载器 0.19.2。",
+      joinGuide: [
+        {
+          title: "下载 PCL2 启动器",
+          body: "搜索「PCL2 启动器」下载最新版，解压到任意文件夹，双击 Plain Craft Launcher 2.exe 打开。",
+        },
+        {
+          title: "安装游戏",
+          body: "点左侧「下载」→ 选 Minecraft 1.21.4 → 勾选「安装 Mod 加载器」→ 选 Fabric → 版本选 0.19.2 → 开始安装，等进度条跑完。",
+        },
+        {
+          title: "下载并安装 Mod 包",
+          body: "点上方「下载 Mod 包」按钮，下载 nexus-mods-1.21.4.zip，解压后把所有 .jar 文件复制到游戏的 mods 文件夹（PCL2 → 版本设置 → 打开版本文件夹 → mods）。",
+        },
+        {
+          title: "进服",
+          body: "启动游戏 → 多人游戏 → 添加服务器 → 地址填 frp-use.com:29702 → 连接，完成。",
+        },
+      ],
     },
   ],
 

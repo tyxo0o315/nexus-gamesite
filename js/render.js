@@ -115,7 +115,45 @@ function buildGameCard(g) {
       }
     </div>
     <div class="game-card-updated">${g.lastUpdated}</div>
+    ${g.joinGuide && g.joinGuide.length ? `
+    <div class="join-guide">
+      <button class="join-guide-toggle" type="button" aria-expanded="false">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        如何加入
+      </button>
+      <ol class="join-guide-steps" hidden>
+        ${g.joinGuide.map((s, i) => `
+        <li class="join-step">
+          <span class="join-step-num">${i + 1}</span>
+          <div>
+            <div class="join-step-title">${s.title}</div>
+            <div class="join-step-body">${s.body}</div>
+          </div>
+        </li>`).join('')}
+      </ol>
+    </div>` : ''}
   `;
+
+  // Toggle guide expand/collapse
+  const toggle = card.querySelector('.join-guide-toggle');
+  const steps = card.querySelector('.join-guide-steps');
+  if (toggle && steps) {
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.classList.toggle('is-open', !open);
+      if (open) {
+        steps.style.maxHeight = steps.scrollHeight + 'px';
+        requestAnimationFrame(() => { steps.style.maxHeight = '0'; });
+        steps.addEventListener('transitionend', () => { steps.hidden = true; }, { once: true });
+      } else {
+        steps.hidden = false;
+        steps.style.maxHeight = '0';
+        requestAnimationFrame(() => { steps.style.maxHeight = steps.scrollHeight + 'px'; });
+      }
+    });
+  }
+
   return card;
 }
 

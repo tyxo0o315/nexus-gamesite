@@ -224,6 +224,86 @@
   50% { opacity: 0.4; }
 }
 
+/* ── 加入教程 accordion ─────────────────────────────────── */
+
+.join-guide {
+  margin-top: var(--space-sm);
+  border-top: 1px solid var(--warm-gray-light);
+  padding-top: var(--space-sm);
+}
+
+.join-guide-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--accent);
+  padding: 0;
+  letter-spacing: 0.02em;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.join-guide-toggle:hover { opacity: 0.75; }
+
+.join-guide-toggle svg {
+  transition: transform var(--duration-fast) var(--ease-out);
+  flex-shrink: 0;
+}
+
+.join-guide-toggle.is-open svg {
+  transform: rotate(180deg);
+}
+
+.join-guide-steps {
+  list-style: none;
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s var(--ease-out);
+}
+
+.join-step {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--warm-gray-light);
+}
+
+.join-step:last-child { border-bottom: none; }
+
+.join-step-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+}
+
+.join-step-title {
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 0.2rem;
+}
+
+.join-step-body {
+  font-size: 0.78rem;
+  color: var(--warm-gray);
+  line-height: 1.65;
+}
+
 @media (max-width: 768px) {
   .game-card { flex: 0 0 280px; }
 }
