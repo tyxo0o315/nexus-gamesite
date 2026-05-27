@@ -1,0 +1,210 @@
+.section-ideas {
+  padding: var(--space-xl) var(--content-padding);
+  background: var(--parchment);
+}
+
+.section-ideas .section-header {
+  padding: 0;
+  margin-bottom: var(--space-lg);
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ideas-grid {
+  columns: 3;
+  column-gap: var(--space-md);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.idea-card {
+  break-inside: avoid;
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: 3px 3px 0 var(--warm-gray-light);
+  border: 1px solid var(--warm-gray-light);
+  opacity: 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.idea-card.color-cream { background: var(--cream); }
+.idea-card.color-warm  { background: var(--card-warm); }
+.idea-card.color-sage  { background: var(--card-sage); }
+
+.idea-card.is-pinned {
+  border-color: var(--accent);
+  box-shadow: 3px 3px 0 var(--accent-pale);
+}
+
+.idea-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.idea-author {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--warm-gray);
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.idea-author-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-pale);
+  color: var(--accent);
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-body);
+}
+
+.idea-pinned-icon {
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.idea-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.idea-body {
+  font-size: var(--text-small);
+  color: var(--warm-gray);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+}
+
+.idea-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.idea-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.idea-tag {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2em 0.6em;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--warm-gray-light);
+  color: var(--warm-gray);
+}
+
+.idea-votes {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: var(--text-small);
+  color: var(--warm-gray);
+  font-weight: 500;
+}
+
+.idea-votes svg { color: var(--accent); }
+
+.idea-date {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--warm-gray-light);
+  margin-top: 0.5rem;
+}
+
+/* ── 腾讯文档嵌入 ───────────────────────────────────────── */
+
+.ideas-doc-wrap {
+  max-width: var(--max-width);
+  margin: var(--space-xl) auto 0;
+  border-top: 1px solid var(--warm-gray-light);
+  padding-top: var(--space-lg);
+}
+
+.ideas-doc-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.ideas-doc-hint {
+  font-size: var(--text-small);
+  color: var(--warm-gray);
+  margin: 0;
+}
+
+.ideas-doc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.55em 1.1em;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-size: var(--text-small);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--ease-out),
+              color     var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
+}
+
+.ideas-doc-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ideas-doc-frame-wrap {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--warm-gray-light);
+  background: var(--cream);
+}
+
+.ideas-doc-frame-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .ideas-doc-frame-wrap { height: 420px; }
+}
+
+/* ── 响应式 ─────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .ideas-grid { columns: 2; }
+}
+
+@media (max-width: 600px) {
+  .ideas-grid { columns: 1; }
+}

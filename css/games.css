@@ -1,0 +1,201 @@
+.section-active-games {
+  padding: var(--space-xl) 0;
+  background: var(--parchment);
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 0 var(--content-padding);
+  margin-bottom: var(--space-lg);
+}
+
+.section-label {
+  display: block;
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-title-line {
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin-top: var(--space-sm);
+  transform-origin: left center;
+}
+
+.games-scroll-track {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--content-padding) var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.games-scroll-track::-webkit-scrollbar { display: none; }
+
+.game-card {
+  flex: 0 0 300px;
+  scroll-snap-align: start;
+  background: var(--cream);
+  border: 1px solid var(--warm-gray-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+  opacity: 0;
+}
+
+.game-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(30, 58, 95, 0.1);
+}
+
+.game-card-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.game-card-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.game-card-subtitle {
+  font-size: var(--text-small);
+  color: var(--warm-gray);
+  font-weight: 400;
+}
+
+.game-card-badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: var(--space-xs) 0;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.2em 0.7em;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--warm-gray-light);
+  color: var(--warm-gray);
+}
+
+.badge.badge-version {
+  background: var(--accent-pale);
+  border-color: transparent;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.game-card-mod-count {
+  margin: var(--space-xs) 0;
+}
+
+.game-card-mod-count .count-number {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.game-card-mod-count .count-label {
+  font-size: var(--text-small);
+  color: var(--warm-gray);
+}
+
+.game-card-notes {
+  font-size: var(--text-small);
+  color: var(--warm-gray);
+  line-height: 1.6;
+  flex: 1;
+  border-top: 1px solid var(--warm-gray-light);
+  padding-top: var(--space-sm);
+}
+
+.game-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: auto;
+}
+
+.game-card-updated {
+  font-size: var(--text-label);
+  color: var(--warm-gray);
+  font-family: var(--font-mono);
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  background: var(--accent);
+  color: var(--cream);
+  font-size: var(--text-small);
+  font-weight: 500;
+  padding: 0.55em 1.2em;
+  border-radius: var(--radius-pill);
+  transition: background var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+  white-space: nowrap;
+}
+
+.btn-download:hover {
+  background: var(--accent-light);
+  transform: scale(1.03);
+}
+
+.game-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--text-label);
+  color: var(--teal);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media (max-width: 768px) {
+  .game-card { flex: 0 0 280px; }
+}

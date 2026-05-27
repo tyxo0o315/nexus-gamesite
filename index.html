@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS</title>
+  <meta name="description" content="朋友圈游戏信息同步站 — Mod 列表、版本、下载链接和一起玩的想法">
+  <meta name="theme-color" content="#F0FDFB">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+<!-- Page enter transition overlay -->
+<div id="page-transition" aria-hidden="true"></div>
+
+<!-- Custom cursor -->
+<div id="cursor-dot"  aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  Navigation                                             -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<nav class="site-nav" role="navigation">
+  <span class="nav-logo" id="site-group-name">我们的服</span>
+  <div class="nav-links">
+    <a href="#games">当前游戏</a>
+    <a href="#mods">Mod 列表</a>
+    <a href="#ideas">一起玩</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  Hero                                                   -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <!-- SVG noise grain texture -->
+  <svg class="hero-texture" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <filter id="noise-filter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noise-filter)"/>
+  </svg>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">Game Center</span>
+
+    <h1 class="hero-headline"
+        id="hero-headline"
+        data-text="游戏 / 同步">
+      游戏 / 同步
+    </h1>
+
+    <p class="hero-tagline" id="hero-tagline">
+      同步 Mod、分享整合包、记录下一个想玩的游戏
+    </p>
+
+    <div class="hero-scroll-hint">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <polyline points="19 12 12 19 5 12"/>
+      </svg>
+      <span>向下滚动</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  Active Games                                           -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section-active-games" id="games">
+  <div class="section-header">
+    <span class="section-label">当前在玩</span>
+    <h2 class="section-title">
+      活跃游戏
+      <span class="section-title-line"></span>
+    </h2>
+  </div>
+
+  <!-- JS will populate this -->
+  <div class="games-scroll-track" id="games-track" role="list"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  Mod List                                               -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section-mods" id="mods">
+  <div class="section-header" style="padding:0; margin-bottom: var(--space-lg);">
+    <span class="section-label">Minecraft</span>
+    <h2 class="section-title">
+      Mod 列表
+      <span class="section-title-line"></span>
+    </h2>
+  </div>
+
+  <div class="mods-layout">
+
+    <!-- Sidebar filter -->
+    <aside class="mods-filter" role="search" aria-label="筛选 Mod">
+      <div class="filter-search">
+        <svg class="filter-search-icon" width="14" height="14" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="mod-search" placeholder="搜索模组…" autocomplete="off">
+      </div>
+
+      <div>
+        <p class="filter-group-title">分类</p>
+        <div class="filter-chips" id="filter-chips-container">
+          <button class="chip filter-chip is-active" data-category="all">全部</button>
+          <button class="chip filter-chip" data-category="性能优化">性能优化</button>
+          <button class="chip filter-chip" data-category="视觉效果">视觉效果</button>
+          <button class="chip filter-chip" data-category="地图">地图</button>
+          <button class="chip filter-chip" data-category="工具">工具</button>
+          <button class="chip filter-chip" data-category="依赖库">依赖库</button>
+        </div>
+      </div>
+
+      <label class="filter-toggle">
+        <input type="checkbox" id="filter-required">
+        <span>仅显示必装</span>
+      </label>
+    </aside>
+
+    <!-- Mod list -->
+    <div>
+      <div class="mods-count" id="mods-count"></div>
+      <div class="mods-list" id="mods-list" role="list"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  Playing Ideas                                           -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section class="section-ideas" id="ideas">
+  <div class="section-header">
+    <span class="section-label">玩法提案</span>
+    <h2 class="section-title">
+      一起玩的想法
+      <span class="section-title-line"></span>
+    </h2>
+  </div>
+
+  <!-- JS will populate this -->
+  <div class="ideas-grid" id="ideas-grid" role="list"></div>
+
+  <!-- 腾讯文档嵌入 — 由 render.js 注入 src，ideasDocUrl 为空时隐藏 -->
+  <div class="ideas-doc-wrap" id="ideas-doc-wrap" hidden>
+    <div class="ideas-doc-bar">
+      <div>
+        <span class="section-label" style="margin-bottom:0.3rem;display:block;">随时补充</span>
+        <p class="ideas-doc-hint">想法直接写进文档，不用改代码</p>
+      </div>
+      <a class="ideas-doc-btn" id="ideas-doc-open" href="#" target="_blank" rel="noopener">
+        在腾讯文档中打开 ↗
+      </a>
+    </div>
+    <div class="ideas-doc-frame-wrap">
+      <iframe id="ideas-doc-iframe" src="" frameborder="0" allowfullscreen
+              title="一起玩的想法共享文档"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  Footer                                                 -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<footer>
+  <div class="site-footer">
+    <div class="footer-left">
+      <div class="footer-name" id="footer-group-name">我们的服</div>
+      <div class="footer-updated" id="footer-updated"></div>
+    </div>
+    <div class="footer-right">
+      <a id="footer-github" href="#" target="_blank" rel="noopener">
+        GitHub →
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!--  Scripts (order matters)                               -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<script src="js/data.js"></script>
+<script src="js/render.js"></script>
+<script src="js/filter.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="js/animations.js"></script>
+
+</body>
+</html>
