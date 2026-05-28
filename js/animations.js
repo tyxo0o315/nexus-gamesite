@@ -132,9 +132,126 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       opacity: 1, y: 0, stagger: 0.08, duration: 0.65, ease: 'back.out(1.3)',
       scrollTrigger: { trigger: '#ideas-grid', start: 'top 78%' },
+      onComplete: initIdeaCardHover,
     }
   );
+
+  // ── Navigation shape transitions ─────────────────────────
+  initShapeTransition();
 });
+
+function initShapeTransition() {
+  const canvas = document.getElementById('shape-canvas');
+  if (!canvas) return;
+
+  const colors = ['#4B5EE8', '#0CBFA2', '#3A4DD0'];
+  const navLinks = [...document.querySelectorAll('.nav-links a')];
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none';
+  const urchin = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  urchin.setAttribute('opacity', '0');
+  svg.appendChild(urchin);
+  canvas.appendChild(svg);
+
+  let isAnimating = false;
+
+  navLinks.forEach((link, idx) => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (isAnimating) return;
+      isAnimating = true;
+
+      const target = link.getAttribute('href');
+      const rect = link.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      // innerR must reach ALL viewport corners to guarantee full coverage
+      const maxDist = Math.hypot(Math.max(cx, vw - cx), Math.max(cy, vh - cy));
+      const innerR = maxDist * 1.15;
+      const outerR = innerR * 2.0;  // outer tips extend ~2× beyond viewport edge
+
+      urchin.setAttribute('d', buildUrchinPath(cx, cy, outerR, innerR, 18));
+      urchin.setAttribute('fill', colors[idx % colors.length]);
+
+      // transformOrigin "50% 50%" = bounding-box center of this path = (cx, cy)
+      gsap.set(urchin, {
+        scale: 0, rotation: -10,
+        transformOrigin: '50% 50%',
+        attr: { opacity: 0.95 },
+      });
+
+      canvas.style.pointerEvents = 'all';
+      const tl = gsap.timeline({ onComplete() { isAnimating = false; } });
+
+      tl.to(urchin, { scale: 1, rotation: 7, duration: 1.1, ease: 'power2.in' })
+        .call(() => document.querySelector(target)?.scrollIntoView({ behavior: 'instant' }))
+        .to(urchin, {
+          scale: 0, rotation: -4,
+          duration: 0.5, ease: 'power3.in', delay: 0.25,
+          onComplete() {
+            canvas.style.pointerEvents = 'none';
+            gsap.set(urchin, { attr: { opacity: 0 } });
+          },
+        });
+    });
+  });
+}
+
+// Builds urchin path centered at (cx, cy) with organically varied spike heights
+function buildUrchinPath(cx, cy, outerR, innerR, numSpikes) {
+  const pts = [];
+  for (let i = 0; i < numSpikes * 2; i++) {
+    const angle = (Math.PI * i) / numSpikes - Math.PI / 2;
+    const r = i % 2 === 0
+      ? outerR * (1 + 0.2 * Math.sin(i * 2.3))  // sine variation: organic, non-repeating
+      : innerR;
+    pts.push(`${i === 0 ? 'M' : 'L'}${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`);
+  }
+  return pts.join('') + 'Z';
+}
+
+function initIdeaCardHover() {
+  document.querySelectorAll('.idea-card').forEach(card => {
+    const baseRot = parseFloat(card.style.getPropertyValue('--card-rot')) || 0;
+
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top)  / r.height - 0.5;
+
+      gsap.to(card, {
+        rotationY: x * 16,
+        rotationX: -y * 12,
+        rotation: 0,
+        scale: 1.04,
+        z: 30,
+        duration: 0.25,
+        ease: 'power2.out',
+        transformPerspective: 900,
+        overwrite: 'auto',
+      });
+
+      card.style.setProperty('--glare-x', `${(x + 0.5) * 100}%`);
+      card.style.setProperty('--glare-y', `${(y + 0.5) * 100}%`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        rotationY: 0, rotationX: 0,
+        rotation: baseRot,
+        scale: 1, z: 0,
+        duration: 0.7, ease: 'elastic.out(1, 0.45)',
+        transformPerspective: 900,
+        overwrite: 'auto',
+      });
+    });
+  });
+}
 
 function animateModRows() {
   const rows = document.querySelectorAll('.mod-row');

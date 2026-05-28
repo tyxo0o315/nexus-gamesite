@@ -28,7 +28,28 @@
   opacity: 0;
   display: inline-block;
   width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
+
+.idea-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0) 65%
+  );
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.idea-card:hover::before { opacity: 1; }
 
 .idea-card.color-cream { background: var(--cream); }
 .idea-card.color-warm  { background: var(--card-warm); }
