@@ -26,7 +26,7 @@ const SITE_DATA = {
       lastUpdated: "2026-05-27",
       packDownloadUrl: "https://github.com/tyxo0o315/nexus-gamesite/releases/download/v1.0.0/nexus-mods-1.21.4.zip",
       packFileName: "nexus-mods-1.21.4.zip",
-      serverAddress: "frp-use.com:29702",
+      serverAddress: "ask-in-group-chat",
       coverEmoji: "⛏️",
       coverImage: 'assets/img/minecraftworld-1.jpeg',
       modsLink: '#mods',
@@ -46,7 +46,7 @@ const SITE_DATA = {
         },
         {
           title: "进服",
-          body: "启动游戏 → 多人游戏 → 添加服务器 → 地址填 frp-use.com:29702 → 连接，完成。",
+          body: "启动游戏 → 多人游戏 → 添加服务器 → 地址在群聊中同步 → 连接，完成。",
         },
       ],
     },

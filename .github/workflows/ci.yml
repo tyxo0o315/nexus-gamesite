@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check JavaScript syntax
+        run: |
+          for file in js/*.js; do
+            node --check "$file"
+          done
+      - name: Check public HTML entry
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html = Path("index.html").read_text(encoding="utf-8")
+          for asset in ["css/main.css", "js/data.js", "js/render.js"]:
+              if asset not in html:
+                  raise SystemExit(f"index.html does not reference {asset}")
+          PY
